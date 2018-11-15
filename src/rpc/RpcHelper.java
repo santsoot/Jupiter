@@ -3,12 +3,15 @@ package rpc;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+
+import entity.Item;
 
 public class RpcHelper {
 	public static void writeJsonObject(HttpServletResponse response, JSONObject obj) throws IOException{
@@ -50,5 +53,19 @@ public class RpcHelper {
 		}
 		
 		return new JSONObject();
+	}
+	
+	
+	// add a getJSONArray method to do JUnit test
+	public static JSONArray getJSONArray(List<Item> items) {
+		JSONArray result = new JSONArray();
+		try {
+			for (Item item : items) {
+				result.put(item.toJSONObject());
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
 	}
 }
